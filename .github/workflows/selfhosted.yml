@@ -468,14 +468,13 @@ jobs:
           rm -rf ${PWD}/crave.conf.sample       
           cp crave.conf $PROJECTFOLDER 
         fi
-        if [[ -z "${{ secrets.CUSTOM_YAML }}" ]]; then
-          cp configs/crave/crave.yaml.aosp $PROJECTFOLDER/.repo/manifests/crave.yaml
-          echo "No Custom Configuration Found, Using Template!"
-        else
-          touch $PROJECTFOLDER/.repo/manifests/crave.yaml || true
-          echo "${{ secrets.CUSTOM_YAML }}" > $PROJECTFOLDER/.repo/manifests/crave.yaml
-          echo "Custom Configuration Found!"
-        fi
+        cat << EOF > $PROJECTFOLDER/.repo/manifests/crave.yaml
+        LOS 22.1:
+          ignoreClientHostname: true
+          no-patch: true
+          env:
+            GH_TOKEN: "${{ secrets.GH_TOKEN }}"
+        EOF
       env:
         CRAVE_USERNAME: ${{  secrets.CRAVE_USERNAME  }}
         CRAVE_TOKEN: ${{  secrets.CRAVE_TOKEN  }}
