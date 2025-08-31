@@ -18,7 +18,7 @@ on:
         options:
           - 'LineageOS 20.0'
           - 'LineageOS 21.0'
-          - 'LineageOS 22.1'
+          - 'LineageOS 22.2'
           - 'ArrowOS 13.1'
           - 'DerpFest 14.0'
           - 'CipherOS 14'
@@ -157,10 +157,10 @@ jobs:
           export PROJECTID="72"
           export REPO_INIT="repo init -u https://github.com/LineageOS/android.git -b lineage-21.0 --git-lfs --depth=1"
         ;;
-        "LineageOS 22.1")
+        "LineageOS 22.2")
           export PROJECTFOLDER="/crave-devspaces/Lineage22"
           export PROJECTID="93"
-          export REPO_INIT="repo init -u https://github.com/accupara/los22.git -b lineage-22.1 --git-lfs --depth=1"
+          export REPO_INIT="repo init -u https://github.com/LineageOS/android.git -b lineage-22.2 --git-lfs --depth=1"
         ;;
         "LineageOS 20.0")
           export PROJECTFOLDER="/crave-devspaces/Lineage20"
@@ -527,6 +527,8 @@ jobs:
         else
           /opt/crave/resync.sh
         fi && \
+
+        git clone https://${GH_TOKEN}@github.com/jun10r4lm31d4/android_vendor_private_keys vendor/private/keys
 
         # Set up build environment
         export BUILD_USERNAME=${{ github.actor }} ; \
